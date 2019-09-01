@@ -1,11 +1,12 @@
-let request = require('request');
-let apiKey = 'b078a7d81849e7d2b796924e54583a40';
-let yourCity = 'dnipro';
-let url = `http://api.openweathermap.org/data/2.5/weather?q=${yourCity}&appid=${apiKey}`;
+const config = require('./config.js');
+const request = require('request');
+config.apiKey();
+config.yourCity();
+let url = `http://api.openweathermap.org/data/2.5/weather?q=${config.yourCity()}&appid=${config.apiKey()}`;
 
-request(url, function (err, response, body) {
+request(url, (err, response, body) => {
   if(err){
-    console.log('Upss, something wrong!:', error);
+    console.log('Upss, something wrong!:', err);
   } else {
     console.log('Actual weather parameters:', body);
   }
