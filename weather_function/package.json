@@ -1,0 +1,27 @@
+{
+  "name": "weather-function",
+  "version": "1.0.0",
+  "description": "nodeJS Function that displays weather data to the console",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metalspell/Perfsys-internship.git"
+  },
+  "author": "Dmitry Krasilnikov",
+  "license": "No license",
+  "bugs": {
+    "url": "https://github.com/Metalspell/Perfsys-internship.git/issues"
+  },
+  "homepage": "https://github.com/Metalspell/Perfsys-internship.git#readme",
+  "dependencies": {
+    "core-util-is": "^1.0.2",
+    "readline-sync": "^1.4.10",
+    "request": "^2.88.0",
+    "yargs": "^14.0.0"
+  },
+  "devDependencies": {},
+  "keywords": []
+}
