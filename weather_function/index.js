@@ -1,9 +1,10 @@
 const config = require('./config.js');
 const request = require('request');
-config.apiKey();
-config.yourCity();
+let apiKey = config.apiKey;
+let yourCity = config.yourCity;
+let url = config.url;
 
-request(config.yourUrl(), (err, response, body) => {
+request(`${url}?q=${yourCity}&appid=${apiKey}`, (err, response, body) => {
   if(err){
     console.log('Upss, something wrong!:', err);
   } else {
@@ -11,4 +12,3 @@ request(config.yourUrl(), (err, response, body) => {
   }
 });
 
-// curl http://v2.wttr.in - fine solution which I liked:)
