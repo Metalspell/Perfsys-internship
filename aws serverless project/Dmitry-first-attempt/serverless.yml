@@ -5,10 +5,14 @@ provider:
   runtime: nodejs10.x
   stage: dev
   region: eu-central-1
-    # These environment variables are made available to our functions
+  # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: ${self:service}-${self:provider.stage}
+    TABLE_NAME: ${self:service}-${self:provider.stage}
+    API_KEY: 'b078a7d81849e7d2b796924e54583a40'
+    YOUR_CITY: 'dnipro'
+    URL: 'http://api.openweathermap.org/data/2.5/weather'
+    REGION: ${self:provider.region}
 
   iamRoleStatements:
     - Effect: Allow
@@ -34,7 +38,7 @@ resources:
     visitsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:service}-${self:provider.stage}
+        TableName: ${self:provider.environment.TABLE_NAME}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -42,19 +46,20 @@ resources:
           - AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 functions:
   putItem:
     handler: handler.putWeatherData
     events:
       - http:
-          path: /id
+          path: post/item
           method: get
   getItem:
     handler: handler.getWeatherData
     events:
       - http:
-          path: /weather
+          path: /item/id
           method: get
+
