@@ -17,13 +17,13 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
+        # - dynamodb:DescribeTable
+        # - dynamodb:Query
+        # - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
+        # - dynamodb:UpdateItem
+        # - dynamodb:DeleteItem
       # Restrict our IAM role permissions to
       # the specific table for the stage
       Resource:
@@ -31,10 +31,6 @@ provider:
 
 resources:
   Resources:
-    # uploadBucket:
-    #   Type: AWS::S3::Bucket
-    #   Properties:
-    #     # BucketName: ${self:service}-${self:custom.stage}-uploads
     visitsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -50,16 +46,15 @@ resources:
           WriteCapacityUnits: 1
 
 functions:
-  putItem:
+  PutItem:
     handler: handler.putWeatherData
     events:
       - http:
           path: post/item
           method: get
-  getItem:
+  GetItem:
     handler: handler.getWeatherData
     events:
       - http:
           path: /item/id
           method: get
-

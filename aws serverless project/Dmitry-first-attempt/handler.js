@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-// const axios = require('axios');
+const uuid = require ("uuid/v4");
 const AWS = require('aws-sdk');
 AWS.config.update({ region: process.env.REGION });
 let params = null;
@@ -7,15 +7,13 @@ const documentClient = new AWS.DynamoDB.DocumentClient({region: process.env.REGI
 
 module.exports.putWeatherData = async (event, context) => {
   const weather = await fetch(`${process.env.URL}?q=${process.env.YOUR_CITY}&appid=${process.env.API_KEY}`);
-  // const weather = await axios.get(`${process.env.URL}?q=${process.env.YOUR_CITY}&appid=${process.env.API_KEY}`);
-
   let responseBody = "";
   let statusCode = 0;
 
   let params = {
     TableName: process.env.TABLE_NAME,
     Item: {
-      id: "1",
+      id: uuid(),
       weatherdata: await weather.json()
     }
   };
@@ -32,7 +30,7 @@ module.exports.putWeatherData = async (event, context) => {
   const response = {
     statusCode: statusCode,
     headers: {
-      "Content-Type" : "application/string"
+      "Content-Type" : "application/JSON"
     },
     body: responseBody
   };
@@ -40,14 +38,13 @@ module.exports.putWeatherData = async (event, context) => {
 };
 
 module.exports.getWeatherData = async (event, context) => {
-
   let responseBody = "";
   let statusCode = 0;
 
   let params = {
     TableName: process.env.TABLE_NAME,
     Key: {
-      id:'1'
+      id: '8e890b5a-2b23-453e-aeda-7b44895db225'
     }
   }
 
@@ -63,7 +60,7 @@ module.exports.getWeatherData = async (event, context) => {
   const response = {
     statusCode: statusCode,
     headers: {
-      "Content-Type" : "application/string"
+      "Content-Type" : "application/JSON"
     },
     body: responseBody
   };

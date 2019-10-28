@@ -8,10 +8,11 @@
     "axios": "^0.19.0",
     "node-fetch": "^2.6.0",
     "serverless-dynamodb-local": "^0.2.26",
-    "serverless-offline": "^3.16.0"
+    "serverless-offline": "^3.16.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "aws-sdk": "^2.140.0",
-    "uuid": "^3.1.0"
+    "uuid": "^3.3.3"
   }
 }
